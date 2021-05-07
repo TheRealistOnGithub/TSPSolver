@@ -1,12 +1,7 @@
 from __future__ import print_function, division
 from array import array as pyarray
 
-if "xrange" not in globals():
-    # py3
-    xrange = range
-else:
-    # py2
-    pass
+xrange = range
 
 
 def optimize_solution(distances, connections, endpoints):
