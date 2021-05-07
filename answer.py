@@ -255,9 +255,9 @@ def main():
         adj.append(intEntries)
         line = f.readline()
     minValIndex = adj[0].index(min(adj[0][1:])) + 1  # adding to offset the fact that this index does not account for 0
-    for nodes in solve_tsp(adj, endpoints=(minValIndex, None)):
+    for nodes in solve_tsp(adj, endpoints=(minValIndex, minValIndex)):
         print(nodes)
-    print(path_cost(adj, solve_tsp(adj, endpoints=(minValIndex, None))))
+    print(path_cost(adj, solve_tsp(adj, endpoints=(minValIndex, minValIndex))))
 
 
 if __name__ == '__main__':
