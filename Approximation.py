@@ -1,10 +1,6 @@
 from __future__ import print_function, division
 from array import array as pyarray
 
-################################################################################
-# A simple algorithm for solving the Travelling Salesman Problem
-# Finds a suboptimal solution
-################################################################################
 if "xrange" not in globals():
     # py3
     xrange = range
@@ -219,19 +215,54 @@ def _close_loop(connections):
     connections[j].append(i)
 
 
-def main():
-    adj = []
+def path_cost(distance_matrix, path):
+    """Caclulate total length of the given path, using the provided distance matrix.
 
+    Parameters
+    ----------
+    distance_matrix : NxN 2d array (numpy or list of lists)
+        Matrix of distance between nodes, only left triangle part is used.
+    path : sequence of integers
+        Path in the graph of nodes. Values are node indices, 0 .. N-1
+    Returns
+    -------
+    Length of the path. If path is empty or contains only 1 node, returns integer 0.
+    """
+
+    ipath = iter(path)
+    try:
+        j = next(ipath)
+    except StopIteration:
+        # empty path
+        return 0
+
+    dist = 0
+    for i in ipath:
+        if i >= j:
+            dist += distance_matrix[i][j]
+        else:
+            dist += distance_matrix[j][i]
+        j = i
+    return dist
+
+
+def main():
+    adj = []  # list used to store the matrix, row by row.
+    minValIndex = None  # integer used to hold the index of the nonzero minimum value aka the starting point of the algorithm
     filename = input()
     f = open(filename, "r")
     line = f.readline()
+
     while line:
         line = line.strip()
         entry = line.split()
         intEntries = [int(item) for item in entry]
         adj.append(intEntries)
         line = f.readline()
-    print(solve_tsp(adj))
+    minValIndex = adj[0].index(min(adj[0][1:])) + 1  # adding to offset the fact that this index does not account for 0
+    for nodes in solve_tsp(adj, endpoints=(minValIndex, None)):
+        print(nodes)
+    print(path_cost(adj, solve_tsp(adj, endpoints=(minValIndex, minValIndex))))
 
 
 if __name__ == '__main__':
