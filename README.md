@@ -1,3 +1,6 @@
 # TSP Solver
 
-Scuffed version that takes in an adjacency matrix and does TSP stuff
+Adapted from dminshin's TSP solver https://github.com/dmishin/tsp-solver
+
+This algorithm first searches for the lowest cost node to traverse to from the first node. Once
+
