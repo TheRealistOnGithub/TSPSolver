@@ -44,7 +44,7 @@ def optimize_solution(distances, connections, endpoints):
 def restore_path(connections, endpoints):
     """Takes array of connections and returns a path.
     Connections is array of lists with 1 or 2 elements.
-    These elements are indices of teh vertices, connected to this vertex
+    These elements are indices of the vertices, connected to this vertex
     Guarantees that first index < last index
     """
     # when endpoints is None, then both start and end are not specified.
